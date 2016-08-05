@@ -14,30 +14,47 @@ public final class MsgCode {
   public enum GameCode
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>REQ_REGISTER_CLIENT = 100001;</code>
+     * <code>RES_CLIENT_CREATE = 100001;</code>
+     *
+     * <pre>
+     *连接已经建立
+     * </pre>
+     */
+    RES_CLIENT_CREATE(0, 100001),
+    /**
+     * <code>REQ_REGISTER_CLIENT = 100002;</code>
      *
      * <pre>
      *请求注册客户端   
      * </pre>
      */
-    REQ_REGISTER_CLIENT(0, 100001),
+    REQ_REGISTER_CLIENT(1, 100002),
     ;
 
     /**
-     * <code>REQ_REGISTER_CLIENT = 100001;</code>
+     * <code>RES_CLIENT_CREATE = 100001;</code>
+     *
+     * <pre>
+     *连接已经建立
+     * </pre>
+     */
+    public static final int RES_CLIENT_CREATE_VALUE = 100001;
+    /**
+     * <code>REQ_REGISTER_CLIENT = 100002;</code>
      *
      * <pre>
      *请求注册客户端   
      * </pre>
      */
-    public static final int REQ_REGISTER_CLIENT_VALUE = 100001;
+    public static final int REQ_REGISTER_CLIENT_VALUE = 100002;
 
 
     public final int getNumber() { return value; }
 
     public static GameCode valueOf(int value) {
       switch (value) {
-        case 100001: return REQ_REGISTER_CLIENT;
+        case 100001: return RES_CLIENT_CREATE;
+        case 100002: return REQ_REGISTER_CLIENT;
         default: return null;
       }
     }
@@ -98,8 +115,9 @@ public final class MsgCode {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rMsgCode.proto*%\n\010GameCode\022\031\n\023REQ_REGIS" +
-      "TER_CLIENT\020\241\215\006B\030\n\rorg.lpf.protoB\007MsgCode"
+      "\n\rMsgCode.proto*>\n\010GameCode\022\027\n\021RES_CLIEN" +
+      "T_CREATE\020\241\215\006\022\031\n\023REQ_REGISTER_CLIENT\020\242\215\006B" +
+      "\030\n\rorg.lpf.protoB\007MsgCode"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

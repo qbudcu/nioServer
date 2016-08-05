@@ -13,16 +13,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.lpf.handler.IHandler;
+import org.lpf.proto.MsgClient;
 import org.lpf.proto.MsgClient.ReqRegisterClient;
+import org.lpf.proto.MsgCode;
 import org.lpf.utils.BitConverter;
+
+import com.google.protobuf.GeneratedMessage;
 
 public class NioServer 
 {
-    private static int DEFAULT_SERVERPORT = 6018;//默认端口
-    private static int DEFAULT_BUFFERSIZE = 1024;//默认缓冲区大小为1024字节
+    private static int DEFAULT_SERVERPORT = 6018;
+    private static int DEFAULT_BUFFERSIZE = 1024;
     private ServerSocketChannel channel;
-    private Selector selector;//选择器
-    private ByteBuffer buffer;//字节缓冲区
+    private Selector selector;
+    private ByteBuffer buffer;
     private int port;
     ExecutorService executorService = Executors.newCachedThreadPool();
     
@@ -39,16 +43,19 @@ public class NioServer
     protected void handleKey(SelectionKey key) throws IOException
     {
           if (key.isAcceptable()) 
-          { // 接收请求
+          { // 鎺ユ敹璇锋眰
         	  System.out.println("recieve acceptable key.");
               ServerSocketChannel server = (ServerSocketChannel) key.channel();
               SocketChannel channel = server.accept();
               channel.configureBlocking(false);
-             //客户socket通道注册读操作
+              MsgClient.ResConnectCreate.Builder req = MsgClient.ResConnectCreate.newBuilder();
+              MsgClient.ResConnectCreate info = req.build();
+              sendMsg(channel, MsgCode.GameCode.RES_CLIENT_CREATE_VALUE, info);
+             //瀹㈡埛socket閫氶亾娉ㄥ唽璇绘搷浣�
               channel.register(selector, SelectionKey.OP_READ);
           }
           else if (key.isReadable()) 
-          {  // 读信息
+          {  // 璇讳俊鎭�
               SocketChannel channel = (SocketChannel) key.channel();
               int count = channel.read(buffer);
               if (count > 0) 
@@ -68,17 +75,18 @@ public class NioServer
              	 ReqRegisterClient res = ReqRegisterClient.parseFrom(data);
 				 System.out.println("msgCode: "+code+" length: "+length+" ClientId: " + res.getClientId());
               }
-              this.buffer.clear();//清空缓冲区
+              this.buffer.clear();//娓呯┖缂撳啿鍖�
           }
 
     }
     public void listen() throws IOException
-    { //服务器开始监听端口，提供服务
+    { //鏈嶅姟鍣ㄥ紑濮嬬洃鍚鍙ｏ紝鎻愪緵鏈嶅姟
         ServerSocket socket;
-        channel = ServerSocketChannel.open(); // 打开通道
-        socket = channel.socket();   //得到与通到相关的socket对象
-        socket.bind(new InetSocketAddress(port));   //将scoket绑定在制定的端口上
-        //配置通到使用非阻塞模式，在非阻塞模式下，可以编写多道程序同时避免使用复杂的多线程
+        channel = ServerSocketChannel.open(); // 鎵撳紑閫氶亾
+        socket = channel.socket();   //寰楀埌涓庨�氬埌鐩稿叧鐨剆ocket瀵硅薄
+        socket.bind(new InetSocketAddress(port));   //灏唖coket缁戝畾鍦ㄥ埗瀹氱殑绔彛涓�
+        System.out.println("Server start. port: "+ port);
+        //閰嶇疆閫氬埌浣跨敤闈為樆濉炴ā寮忥紝鍦ㄩ潪闃诲妯″紡涓嬶紝鍙互缂栧啓澶氶亾绋嬪簭鍚屾椂閬垮厤浣跨敤澶嶆潅鐨勫绾跨▼
         channel.configureBlocking(false);    
         channel.register(selector, SelectionKey.OP_ACCEPT);
         try 
@@ -89,7 +97,6 @@ public class NioServer
                 Iterator<SelectionKey> iter = this.selector.selectedKeys().iterator();
                 while(iter.hasNext())
                 {
-                	System.out.println("recieve a key.");
                     SelectionKey key = (SelectionKey)iter.next();
                     iter.remove();
                     this.handleKey(key); 
@@ -101,4 +108,17 @@ public class NioServer
             ex.printStackTrace();
         }
     }
+    
+    public static void sendMsg(SocketChannel socket, int code, GeneratedMessage info) throws IOException{
+		 byte[] data = info.toByteArray();
+		 byte[] send_datas = new byte[data.length+8];
+		 byte[] msg_code = BitConverter.intToBytes(code);
+		 byte[] length = BitConverter.intToBytes(data.length);
+		 System.arraycopy(msg_code, 0, send_datas, 0, 4);
+		 System.arraycopy(length, 0, send_datas, 4, 4);
+		 System.arraycopy(data, 0, send_datas, 8, data.length);
+		 socket.write(ByteBuffer.wrap(send_datas));
+		 //System.out.println(socketChannel.socket().getSendBufferSize());
+		 System.out.println("data sent. Message code: "+code);
+	}
 }
