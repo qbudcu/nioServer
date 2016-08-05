@@ -11,7 +11,7 @@ public class HandlerManager {
 	private static volatile HandlerManager instance;
 	private HashMap<Integer, IHandler> handlerMap = new HashMap<Integer, IHandler>();
 	private HandlerManager(){
-		readXML("src/configure.xml");
+		readXML("src/main/java/org/lpf/config/configure.xml");
 	}
 	public static HandlerManager getInstance(){
 		if (instance == null)

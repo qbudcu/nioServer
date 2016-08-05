@@ -10,5 +10,4 @@ public class NioServerTest {
 		NioServer server = new NioServer(6018);
 		server.listen();
 	}
-
 }
