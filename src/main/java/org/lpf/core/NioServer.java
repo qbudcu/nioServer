@@ -9,7 +9,6 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,7 +16,7 @@ import org.lpf.handler.IHandler;
 import org.lpf.proto.MsgClient.ReqRegisterClient;
 import org.lpf.utils.BitConverter;
 
-public class ChannelServer 
+public class NioServer 
 {
     private static int DEFAULT_SERVERPORT = 6018;//默认端口
     private static int DEFAULT_BUFFERSIZE = 1024;//默认缓冲区大小为1024字节
@@ -27,7 +26,7 @@ public class ChannelServer
     private int port;
     ExecutorService executorService = Executors.newCachedThreadPool();
     
-    public ChannelServer(int port) throws IOException
+    public NioServer(int port) throws IOException
     {
         this.port = port;
         this.channel = null;
@@ -69,28 +68,6 @@ public class ChannelServer
              	 ReqRegisterClient res = ReqRegisterClient.parseFrom(data);
 				 System.out.println("msgCode: "+code+" length: "+length+" ClientId: " + res.getClientId());
               }
-              /*BufferedInputStream in = new BufferedInputStream(channel.socket().getInputStream());
-              byte[] recieve_data = new byte[1024];
-              int count = in.read(recieve_data);
-              if (count > 0) 
-              {
-            	 byte[] codeBytes = new byte[4];
-             	 byte[] lengthBytes = new byte[4];
-             	 
-             	 System.arraycopy(recieve_data, 0, codeBytes, 0, 4);
-             	 System.arraycopy(recieve_data, 4, lengthBytes, 0, 4);
-             	 int code = BitConverter.bytesToInt(codeBytes);
-             	 int length = BitConverter.bytesToInt(lengthBytes);
-             	 byte[] data = new byte[length];
-             	 System.arraycopy(recieve_data, 8, data, 0, length);
-             	 ReqRegisterClient res = ReqRegisterClient.parseFrom(data);
-				 System.out.println("msgCode: "+code+" length: "+length+" ClientId: " + res.getClientId());
-				 try {
-					 Thread.sleep(1000);
-				 } catch (InterruptedException e) {
-					 e.printStackTrace();
-				 }
-              } */
               this.buffer.clear();//清空缓冲区
           }
 

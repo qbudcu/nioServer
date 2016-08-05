@@ -9,9 +9,8 @@ import org.lpf.handler.IHandler;
 
 public class HandlerManager {
 	private static volatile HandlerManager instance;
-	private HashMap<Integer, IHandler> handlerMap = new HashMap<>();
+	private HashMap<Integer, IHandler> handlerMap = new HashMap<Integer, IHandler>();
 	private HandlerManager(){
-		//���������ļ�
 		readXML("src/configure.xml");
 	}
 	public static HandlerManager getInstance(){
