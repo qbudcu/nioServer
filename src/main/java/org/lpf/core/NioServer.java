@@ -43,7 +43,7 @@ public class NioServer
     protected void handleKey(SelectionKey key) throws IOException
     {
           if (key.isAcceptable()) 
-          { // 鎺ユ敹璇锋眰
+          { 
         	  System.out.println("recieve acceptable key.");
               ServerSocketChannel server = (ServerSocketChannel) key.channel();
               SocketChannel channel = server.accept();
@@ -51,11 +51,11 @@ public class NioServer
               MsgClient.ResConnectCreate.Builder req = MsgClient.ResConnectCreate.newBuilder();
               MsgClient.ResConnectCreate info = req.build();
               sendMsg(channel, MsgCode.GameCode.RES_CLIENT_CREATE_VALUE, info);
-             //瀹㈡埛socket閫氶亾娉ㄥ唽璇绘搷浣�
+
               channel.register(selector, SelectionKey.OP_READ);
           }
           else if (key.isReadable()) 
-          {  // 璇讳俊鎭�
+          { 
               SocketChannel channel = (SocketChannel) key.channel();
               int count = channel.read(buffer);
               if (count > 0) 
@@ -75,18 +75,18 @@ public class NioServer
              	 ReqRegisterClient res = ReqRegisterClient.parseFrom(data);
 				 System.out.println("msgCode: "+code+" length: "+length+" ClientId: " + res.getClientId());
               }
-              this.buffer.clear();//娓呯┖缂撳啿鍖�
+              this.buffer.clear();
           }
 
     }
     public void listen() throws IOException
-    { //鏈嶅姟鍣ㄥ紑濮嬬洃鍚鍙ｏ紝鎻愪緵鏈嶅姟
+    { 
         ServerSocket socket;
-        channel = ServerSocketChannel.open(); // 鎵撳紑閫氶亾
-        socket = channel.socket();   //寰楀埌涓庨�氬埌鐩稿叧鐨剆ocket瀵硅薄
-        socket.bind(new InetSocketAddress(port));   //灏唖coket缁戝畾鍦ㄥ埗瀹氱殑绔彛涓�
+        channel = ServerSocketChannel.open(); 
+        socket = channel.socket();   
+        socket.bind(new InetSocketAddress(port));   
         System.out.println("Server start. port: "+ port);
-        //閰嶇疆閫氬埌浣跨敤闈為樆濉炴ā寮忥紝鍦ㄩ潪闃诲妯″紡涓嬶紝鍙互缂栧啓澶氶亾绋嬪簭鍚屾椂閬垮厤浣跨敤澶嶆潅鐨勫绾跨▼
+      
         channel.configureBlocking(false);    
         channel.register(selector, SelectionKey.OP_ACCEPT);
         try 
