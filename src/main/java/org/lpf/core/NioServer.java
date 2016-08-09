@@ -1,6 +1,7 @@
 package org.lpf.core;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
@@ -29,6 +30,15 @@ public class NioServer
     private ByteBuffer buffer;
     private int port;
     ExecutorService executorService = Executors.newCachedThreadPool();
+    
+    public NioServer() throws IOException
+    {
+        this.port = DEFAULT_SERVERPORT;
+        this.channel = null;
+        this.selector = Selector.open();
+        this.buffer = ByteBuffer.allocate(DEFAULT_BUFFERSIZE);
+        
+    }
     
     public NioServer(int port) throws IOException
     {
@@ -67,13 +77,12 @@ public class NioServer
              	 System.arraycopy(recieve_data, 4, lengthBytes, 0, 4);
              	 int code = BitConverter.bytesToInt(codeBytes);
              	 int length = BitConverter.bytesToInt(lengthBytes);
+             	 System.out.println("Recieve a new message. "+"msgCode: "+code+" length: "+length);
              	 byte[] data = new byte[length];
              	 System.arraycopy(recieve_data, 8, data, 0, length);
              	 IHandler handler = HandlerManager.getInstance().getHandler(code);
              	 handler.setMsgData(data);
-             	 executorService.submit(handler);
-             	 ReqRegisterClient res = ReqRegisterClient.parseFrom(data);
-				 System.out.println("msgCode: "+code+" length: "+length+" ClientId: " + res.getClientId());
+             	 executorService.submit(handler);			 
               }
               this.buffer.clear();
           }
@@ -86,7 +95,7 @@ public class NioServer
         socket = channel.socket();   
         socket.bind(new InetSocketAddress(port));   
         System.out.println("Server start. port: "+ port);
-      
+        System.out.println(InetAddress.getLocalHost());
         channel.configureBlocking(false);    
         channel.register(selector, SelectionKey.OP_ACCEPT);
         try 
