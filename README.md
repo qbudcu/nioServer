@@ -1,26 +1,26 @@
-nioServer
+#nioServer
 
-·â×°ÁËjava nioºÍprotobufµÄÒ»¿î¼òµ¥µÄ·şÎñÆ÷Í¨ĞÅ¿ò¼Ü¡£
+å°è£…äº†java nioå’Œprotobufçš„ä¸€æ¬¾ç®€å•çš„æœåŠ¡å™¨é€šä¿¡æ¡†æ¶ã€‚
 
-1. Éè¼Æ¸ÅÒª
+##1. è®¾è®¡æ¦‚è¦
 
-1. IOÄ£ĞÍ²ÉÓÃJDK NIO
+1. IOæ¨¡å‹é‡‡ç”¨JDK NIO
 
-2. ÏûÏ¢·â×°²ÉÓÃµÄprotobuf£¬¾ßÌå¸ñÊ½Îª£ºÏûÏ¢ºÅ£¨4byte£©+Êı¾İ³¤¶È£¨4byte£©+Êı¾İ¡£ÏûÏ¢ºÅÓÃÀ´Çø·ÖµÄÏûÏ¢ÊµÌå£¬Êı¾İ³¤¶ÈÓÃÀ´½â¾ö·Ö°üÎÊÌâ¡£
+2. æ¶ˆæ¯å°è£…é‡‡ç”¨çš„protobufï¼Œå…·ä½“æ ¼å¼ä¸ºï¼šæ¶ˆæ¯å·ï¼ˆ4byteï¼‰+æ•°æ®é•¿åº¦ï¼ˆ4byteï¼‰+æ•°æ®ã€‚æ¶ˆæ¯å·ç”¨æ¥åŒºåˆ†çš„æ¶ˆæ¯å®ä½“ï¼Œæ•°æ®é•¿åº¦ç”¨æ¥è§£å†³åˆ†åŒ…é—®é¢˜ã€‚
 
-3. ²ÉÓÃ·´Éä+¹¤³§Ä£Ê½µÄ½á¹¹£¬ÀûÓÃXMLÎÄ¼şÀ´×¢²áÏûÏ¢´¦ÀíÀà¡£Ê¹ÓÃÕßÖ»ĞèÒªÊµÏÖ½Ó¿Ú±àĞ´×Ô¼ºµÄÏûÏ¢´¦ÀíÀà£¬È»ºóÔÚÅäÖÃÎÄ¼şÖĞ×¢²áºó¼´¿ÉÊ¹ÓÃ£¬¼ò»¯ÁË¿ª·¢¹¤×÷¡£   
-2. Demo
+3. é‡‡ç”¨åå°„+å·¥å‚æ¨¡å¼çš„ç»“æ„ï¼Œåˆ©ç”¨XMLæ–‡ä»¶æ¥æ³¨å†Œæ¶ˆæ¯å¤„ç†ç±»ã€‚ä½¿ç”¨è€…åªéœ€è¦å®ç°æ¥å£ç¼–å†™è‡ªå·±çš„æ¶ˆæ¯å¤„ç†ç±»ï¼Œç„¶ååœ¨é…ç½®æ–‡ä»¶ä¸­æ³¨å†Œåå³å¯ä½¿ç”¨ï¼Œç®€åŒ–äº†å¼€å‘å·¥ä½œã€‚   
+##2. Demo
 
-DemoÖĞ°üº¬ÁËÁ½¸öÏûÏ¢µÄ´¦Àí¡£´óÌå¹ı³ÌÈçÏÂ£º
+Demoä¸­åŒ…å«äº†ä¸¤ä¸ªæ¶ˆæ¯çš„å¤„ç†ã€‚å¤§ä½“è¿‡ç¨‹å¦‚ä¸‹ï¼š
 
-1. ¿Í»§¶ËÓë·şÎñÆ÷½¨Á¢Á¬½Ó£¬·şÎñÆ÷·µ»ØResClientCreateÏûÏ¢¸ø¿Í»§¶Ë£»
+1. å®¢æˆ·ç«¯ä¸æœåŠ¡å™¨å»ºç«‹è¿æ¥ï¼ŒæœåŠ¡å™¨è¿”å›ResClientCreateæ¶ˆæ¯ç»™å®¢æˆ·ç«¯ï¼›
 
-2. ¿Í»§¶ËÊÕµ½ÏûÏ¢ºó£¬ÔÚResClientCreateHandlerÀàÖĞ½øĞĞ´¦Àí£¬²¢·¢ËÍReqRegisterClient¸ø·şÎñÆ÷£»
+2. å®¢æˆ·ç«¯æ”¶åˆ°æ¶ˆæ¯åï¼Œåœ¨ResClientCreateHandlerç±»ä¸­è¿›è¡Œå¤„ç†ï¼Œå¹¶å‘é€ReqRegisterClientç»™æœåŠ¡å™¨ï¼›
 
-3. ·şÎñÆ÷ÊÕµ½ÏûÏ¢£¬ÔÚReqRegisterClientHandler½øĞĞ´¦Àí¡£
+3. æœåŠ¡å™¨æ”¶åˆ°æ¶ˆæ¯ï¼Œåœ¨ReqRegisterClientHandlerè¿›è¡Œå¤„ç†ã€‚
 
-·şÎñ¶Ë£º
-    ½«±¾ÏîÄ¿µ¼ÈëEclipse£¬ÔËĞĞorg/lpf°üÏÂµÄnioServerTest£¬¼´¿ÉÆô¶¯·şÎñÆ÷¡£
+æœåŠ¡ç«¯ï¼š
+    å°†æœ¬é¡¹ç›®å¯¼å…¥Eclipseï¼Œè¿è¡Œorg/lpfåŒ…ä¸‹çš„nioServerTestï¼Œå³å¯å¯åŠ¨æœåŠ¡å™¨ã€‚
     public class NioServerTest {
         public static void main(String[] args) throws IOException {
             NioServer server = new NioServer(6018);
@@ -28,29 +28,29 @@ DemoÖĞ°üº¬ÁËÁ½¸öÏûÏ¢µÄ´¦Àí¡£´óÌå¹ı³ÌÈçÏÂ£º
         }
     }
 
-¿Í»§¶Ë£º
-    ¿Í»§¶Ëdemo²ÎÕÕÎÒµÄnioClientÏîÄ¿https://github.com/qbudcu/nioClient£¬Í¬ÑùÔÚorg/lpf/nioClientTest.
+å®¢æˆ·ç«¯ï¼š
+    å®¢æˆ·ç«¯demoå‚ç…§æˆ‘çš„nioClienté¡¹ç›®https://github.com/qbudcu/nioClientï¼ŒåŒæ ·åœ¨org/lpf/nioClientTest.
     public class NioClientTest {
         public static void main(String[] args) throws IOException {
             ConnManager.getInstance().getClient("localhost", 6018).connect();   
         }
     }
-3. ¶¨ÖÆ×Ô¼ºµÄÏûÏ¢ÒµÎñ
+##3. å®šåˆ¶è‡ªå·±çš„æ¶ˆæ¯ä¸šåŠ¡
 
-1. ¶¨ÖÆ×Ô¼ºµÄÏûÏ¢Ğ­Òé£¨protoÎÄ¼ş£©£¬ÈçÏÂËùÊ¾
+1. å®šåˆ¶è‡ªå·±çš„æ¶ˆæ¯åè®®ï¼ˆprotoæ–‡ä»¶ï¼‰ï¼Œå¦‚ä¸‹æ‰€ç¤º
     option java_package = "org.lpf.proto";   
     option java_outer_classname = "MsgClient";
-    //RES_CLIENT_CREATE = 100001 Á¬½ÓÒÑ¾­½¨Á¢
+    //RES_CLIENT_CREATE = 100001 è¿æ¥å·²ç»å»ºç«‹
     message ResConnectCreate{
     }
-    //REQ_REGISTER_CLIENT = 100002 ÇëÇó×¢²á¿Í»§¶Ë   
+    //REQ_REGISTER_CLIENT = 100002 è¯·æ±‚æ³¨å†Œå®¢æˆ·ç«¯   
     message ReqRegisterClient  {    
       required string clientId = 1;   
     }  
 
-2. ÀûÓÃprotobuf´úÂëÉú³É¹¤¾ß£¬Éú³Éjava´úÂë¼ÓÈëµ½ÏîÄ¿ÖĞ£¬±£Ö¤¿Í»§¶ËÓë·şÎñÆ÷´úÂëÒ»ÖÂ£»
+2. åˆ©ç”¨protobufä»£ç ç”Ÿæˆå·¥å…·ï¼Œç”Ÿæˆjavaä»£ç åŠ å…¥åˆ°é¡¹ç›®ä¸­ï¼Œä¿è¯å®¢æˆ·ç«¯ä¸æœåŠ¡å™¨ä»£ç ä¸€è‡´ï¼›
 
-3. ¸ù¾İĞèÒª±àĞ´ÏûÏ¢´¦ÀíÀà£¬ĞèÒªÊµÏÖorg.lpf.handler.Ihandler½Ó¿Ú
+3. æ ¹æ®éœ€è¦ç¼–å†™æ¶ˆæ¯å¤„ç†ç±»ï¼Œéœ€è¦å®ç°org.lpf.handler.Ihandleræ¥å£
     public class ReqRegisterClientHandler implements IHandler{
         private ReqRegisterClient res;
         public void init(Object[] obj) {
@@ -66,12 +66,12 @@ DemoÖĞ°üº¬ÁËÁ½¸öÏûÏ¢µÄ´¦Àí¡£´óÌå¹ı³ÌÈçÏÂ£º
         }
     }
 
-4. ÔÚorg/lpf/config/configure.xml×¢²á±àĞ´µÄÏûÏ¢´¦ÀíÀà¡£
+4. åœ¨org/lpf/config/configure.xmlæ³¨å†Œç¼–å†™çš„æ¶ˆæ¯å¤„ç†ç±»ã€‚
     <?xml version="1.0" encoding="UTF-8"?>
     <package>
         <handler name="ReqRegisterClientHandler" class="org.lpf.handler.impl.ReqRegisterClientHandler"></handler>
     </package>
-4. Î´À´¹¤×÷
+##4. æœªæ¥å·¥ä½œ
 
-1. ´úÂëÖØ¹¹
-2. ´®ĞĞÉè¼Æ£¬Í¬Ò»Á¬½ÓµÄÒµÎñÔÚµ¥¸öÏß³ÌÖ´ĞĞ
+1. ä»£ç é‡æ„
+2. ä¸²è¡Œè®¾è®¡ï¼ŒåŒä¸€è¿æ¥çš„ä¸šåŠ¡åœ¨å•ä¸ªçº¿ç¨‹æ‰§è¡Œ
